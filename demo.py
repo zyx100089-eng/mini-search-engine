@@ -57,6 +57,7 @@ def demo_sparse() -> None:
           f"({100 * nnz / (n * n):.2f}% of dense)")
     L = CSR.from_coo(n, [(i, j, 1.0 / outdeg[i]) for (i, j) in links])
     print(f"   CSR matrix: {L.nnz()} nonzeros, density {L.density():.4f}")
+    print(f"   ({nnz - L.nnz()} duplicate link pairs merged by from_coo)")
 
 
 def demo_power_iteration() -> None:

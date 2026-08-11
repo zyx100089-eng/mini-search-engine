@@ -123,9 +123,10 @@ away, and sinks don't trap it.
 
 | damping d | iterations to 1e-10 |
 |----------:|---------------------:|
+| 0.1 | 9 |
 | 0.5 | 22 |
-| 0.85 | 46 |
-| 0.99 | 65 |
+| 0.85 | 43 |
+| 0.99 | 61 |
 
 The error contracts by a factor d per iteration (the second
 eigenvalue of the chain is d), so the iteration count scales like

@@ -58,9 +58,9 @@ python3 demo.py     # personal-statement walkthrough
   random graphs (atol 1e-10); sum(pi) == 1 exactly to float precision
 - Convergence rate follows the spectral radius: d=0.1 -> 9 iterations,
   d=0.99 -> 61 iterations (1e-10 tolerance)
-- The synthetic web (40 pages, 86 links): authorities (in-degree ~20)
-  dominate rank; hubs (out-degree ~13) give rank away; sinks don't
-  trap it
+- The synthetic web (40 pages, 120 links, mean out-degree 3.0):
+  authorities (in-degree 18-23) dominate rank; hubs (out-degree 13-14)
+  give rank away; sinks don't trap it
 - Search: topic queries rank their topic's pages first; the PageRank
   prior visibly changes the winner (e.g. 'caesar legion' promotes the
   Ancient-Rome authority page over its siblings)

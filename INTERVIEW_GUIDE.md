@@ -86,7 +86,10 @@ is at least `1-d`). So:
 
 - error shrinks by a factor of d each iteration,
 - d = 0.85 → error ×0.85 per step: about 85 steps per 10× reduction,
-- measured: d=0.1 → 9 iterations, d=0.85 → 46, d=0.99 → 61 (to 1e-10).
+- measured (5-node chain, to 1e-10): d=0.1 → 9 iterations, d=0.85 →
+  43, d=0.99 → 61.  On the 40-page synthetic web: d=0.1 → 8, d=0.85
+  → 28, d=0.99 → 34.  (Iteration count depends on the graph, not just
+  d — the spectral radius bound is d, but the constant differs.)
 
 That's why Google uses d = 0.85: close to 1 (follows the web's
 structure) but with a spectral gap that keeps iteration count modest.
@@ -165,7 +168,10 @@ structure:
   (clustering — the web's community structure)
 - 4 hubs link out to ~1/3 of pages (high out-degree, spam-like)
 - 3 authorities receive links from 45% of pages (high in-degree)
-- 3 sinks link nowhere
+- 3 sinks link nowhere (declared); the actual graph has 7 zero-out-
+  degree pages — the 3 declared sinks plus 4 content pages that
+  happened to receive no out-links (they still get rank via the
+  teleport term, so they don't trap it)
 
 The roles are non-overlapping so the demo tells a clean story:
 authorities dominate rank, hubs give rank away, sinks don't trap it.
@@ -273,12 +279,14 @@ to an edge when the target gets an id — so no links are lost.
 
 ## 9. Measured numbers (cite these)
 
-- 40-page synthetic web, 86 links, mean out-degree 2.1; CSR density
-  5.4% (vs 100% dense).
+- 40-page synthetic web, 120 links, mean out-degree 3.0; CSR density
+  7.19% (vs 100% dense).  Note: 120 link entries include 5 duplicate
+  pairs; `from_coo` merges them, so the CSR matrix holds 115 nonzeros.
 - Top rank ≈ 0.29 for the top authority; hubs (out-degree 13-14) rank
-  ~0.008 — rank flows *into* pages.
-- d=0.1 → 9 iters, d=0.85 → 46 iters, d=0.99 → 61 iters (to 1e-10).
-- 10k nodes / 75k edges: ~2s. 100k nodes / 500k edges: ~14s.
+  ~0.005 — rank flows *into* pages.
+- d=0.1 → 9 iters, d=0.85 → 28 iters, d=0.99 → 61 iters (to 1e-10).
+- 10k nodes / 75k edges: ~1s. 100k nodes / 500k edges: ~9s (Apple
+  silicon, pure Python; machine-dependent).
 - sum(pi) = 1.000000000000 to float precision.
 
 ---

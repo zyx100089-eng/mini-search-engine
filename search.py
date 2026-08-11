@@ -5,10 +5,12 @@ Retrieval model (a small classic pipeline):
 - Tokenise: lowercase, split on non-alphanumerics, drop stopwords and
   single-character tokens.
 - Inverted index: term -> posting list of (doc_id, term frequency).
-- Query scoring: TF-IDF with cosine normalisation.
+- Query scoring: TF-IDF with length normalisation (cosine-ish: divide
+  by doc length, not an L2 norm — see INTERVIEW_GUIDE for the honest
+  caveat and future work).
       tf = term frequency in the doc
       idf = log(1 + N / df)   (doc-frequency of the term)
-      score(d, q) = sum over query terms of tf * idf
+      score(d, q) = sum over query terms of (tf / doc_len) * idf
   plus a PageRank prior: final = tfidf + beta * pagerank.
 
 Why combine both?  Pure text match finds *relevance* (does the page
