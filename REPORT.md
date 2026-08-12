@@ -1,8 +1,6 @@
 # A Mini Search Engine: PageRank from Scratch
 
-*A report for admissions — written as if for a short undergraduate project write-up.*
-
----
+*Project write-up.*
 
 ## Summary
 
