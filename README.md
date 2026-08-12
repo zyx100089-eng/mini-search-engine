@@ -51,13 +51,6 @@ python3 verify.py   # full verification
 python3 demo.py     # demonstration
 ```
 
-## What I Learned
-
-- The damping factor is not a hack: it is what gives the chain a unique stationary distribution, and the convergence rate of power iteration is governed by it (error shrinks by a factor of d per iteration).
-- Sink handling is necessary in practice: without redistributing mass on out-degree-0 pages, the iteration accumulates rank in dead ends.
-- CSR matvec is a single pass over nonzeros, and the transposed direction PageRank needs is equally cheap — the format is the right fit for the algorithm.
-- A rank prior and a content score measure different things; blending them (TF-IDF × PageRank) produces visibly better topical ranking than either alone.
-
 ## References
 
 - Page, Brin, Motwani, Winograd, *The PageRank Citation Ranking: Bringing Order to the Web* (1998)
