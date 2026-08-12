@@ -16,8 +16,8 @@ The project's central claims, each verified by its test suite:
   "random surfer" — and my implementation matches an independent
   dense-numpy reference to 1e-10 on random graphs, always summing to
   exactly 1.
-- The **damping factor controls convergence**: 9 iterations at
-  d=0.1, 61 at d=0.99 — matching the theory that the error contracts
+- The **damping factor controls convergence**: 8 iterations at
+  d=0.1, 34 at d=0.99 — matching the theory that the error contracts
   by a factor d per iteration.
 - Search blends two signals: **TF-IDF finds relevance** (does the
   page talk about the topic), **PageRank finds importance** (does the
@@ -121,10 +121,10 @@ away, and sinks don't trap it.
 
 | damping d | iterations to 1e-10 |
 |----------:|---------------------:|
-| 0.1 | 9 |
-| 0.5 | 22 |
-| 0.85 | 43 |
-| 0.99 | 61 |
+| 0.1 | 8 |
+| 0.5 | 17 |
+| 0.85 | 28 |
+| 0.99 | 34 |
 
 The error contracts by a factor d per iteration (the second
 eigenvalue of the chain is d), so the iteration count scales like
