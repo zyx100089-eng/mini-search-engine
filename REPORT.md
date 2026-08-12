@@ -126,9 +126,11 @@ away, and sinks don't trap it.
 | 0.85 | 28 |
 | 0.99 | 34 |
 
-The error contracts by a factor d per iteration (the second
-eigenvalue of the chain is d), so the iteration count scales like
-`log(tol)/log(d)` — the measured numbers match.
+The error contracts by a factor |λ₂| per iteration, where
+|λ₂| = d·λ₂(A) is the second eigenvalue of the damped chain (the
+undamped synthetic web has λ₂ = 0.5, so at d=0.99, |λ₂| = 0.495).
+The iteration count scales like log(tol)/log(|λ₂|): the formula
+predicts ~33 iterations at d=0.99 vs the 34 measured.
 
 ### 4.3 Search
 

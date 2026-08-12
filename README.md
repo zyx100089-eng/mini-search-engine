@@ -39,15 +39,21 @@ stopping when ‖π_{k+1} − π_k‖₁ < 1e-10.
 
 - PageRank matches an independent dense NumPy implementation on 20
   random graphs (atol 1e-10); sum(π) == 1 exactly to float precision.
-- **Convergence follows the spectral radius**: `d=0.1` converges in 8
-  iterations, `d=0.99` in 34 (1e-10 tolerance). The gap is the
-  spectral gap of the chain, measured rather than asserted.
+- **Convergence follows the spectral radius**: on the synthetic web
+  (40 pages), `d=0.1` converges in 8 iterations and `d=0.99` in 34
+  (1e-10 tolerance). `verify.py` measures the same effect on a 5-node
+  chain (9 and 61 iterations). The gap is the spectral gap of the
+  damped chain — the second eigenvalue d·λ₂(A) — measured rather than
+  asserted.
 
 ![PageRank convergence vs damping](docs/pagerank_convergence.png)
 
-*The error contracts by a factor d per iteration (the second
-eigenvalue of the chain is d), so the iteration count scales like
-log(tol)/log(d). The measured curve matches that prediction.*
+*Synthetic web (40 pages, tol 1e-10). The error contracts by a factor
+|λ₂| per iteration, where |λ₂| = d·λ₂(A) is the second eigenvalue of
+the damped matrix, so the iteration count scales like
+log(tol)/log(d·λ₂(A)). The measured curve matches that prediction —
+e.g. d=0.99 gives |λ₂| = 0.495, predicting ~33 iterations vs the 34
+measured.*
 - On the synthetic web (40 pages, 120 links): authorities (in-degree
   18–23) dominate rank; hubs (out-degree 13–14) give rank away; sinks
   do not trap it.
