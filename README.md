@@ -61,12 +61,35 @@ measured.*
   prior visibly changes the winner (query "caesar legion" promotes the
   Ancient-Rome authority page over its siblings).
 
+## What search looks like
+
+`python3 demo.py` runs the whole pipeline; the search section shows
+the TF-IDF × PageRank blend in action:
+
+```
+query: 'caesar legion'
+  Ancient Rome #15    tfidf=0.533  rank=0.2650  score=0.798
+     About ancient rome. empire senate **caesar** **legion** provinces aqueducts gladiators
+  Ancient Rome #12    tfidf=0.533  rank=0.0049  score=0.538
+     About ancient rome. empire senate **caesar** **legion** provinces aqueducts gladiators
+  Ancient Rome #13    tfidf=0.533  rank=0.0048  score=0.538
+     About ancient rome. empire senate **caesar** **legion** provinces aqueducts gladiators
+```
+
+All three pages match the query equally well (same tfidf) — the
+authority page `#15` wins because the network endorses it (rank
+0.265 vs 0.005). Without the PageRank blend (`beta=0.0`) the winner
+is `#0`; with it, `#15` — the query where the two signals disagree,
+and the blend resolves it.
+
 ## What I'd do differently
 
-- **Crawl something real at scale.** The polite crawler works, but the
-  experiments mostly run on the synthetic web because a real crawl
-  needs care (robots.txt, rate limits, storage). The synthetic web was
-  the honest scope.
+- **Crawl something real at scale.** The polite crawler works, and a
+  bounded real crawl is committed (`crawl_real.py` + `data/real_crawl.json`:
+  25 pages / 1071 links from imperial.ac.uk, ranked and searchable) —
+  but the experiments still mostly run on the synthetic web because a
+  large crawl needs care (robots.txt, rate limits, storage). The
+  synthetic web was the honest scope.
 - **Query understanding.** No query expansion, no synonyms, no
   stemming beyond a naive suffix strip.
 - **Blocking.** PageRank on the synthetic web is fine as an algorithm
@@ -87,4 +110,5 @@ measured.*
 python3 -m pytest test_search.py -q   # unit tests
 python3 verify.py                     # full verification
 python3 demo.py                       # demonstration
+python3 crawl_real.py --seeds https://www.imperial.ac.uk/mathematics/ --max-pages 25
 ```
