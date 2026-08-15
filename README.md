@@ -86,14 +86,20 @@ authority page `#15` wins because the network endorses it (rank
 is `#0`; with it, `#15` — the query where the two signals disagree,
 and the blend resolves it.
 
+## A real crawl
+
+The synthetic web is the reproducible core, but the crawler also works
+on real sites. `crawl_real.py` crawled 25 pages / 1071 links from
+imperial.ac.uk, and the committed `data/real_crawl.json` is ranked
+and searchable with the same pipeline. (Scope: a large crawl needs
+robots.txt, rate limits, and storage — that's engineering beyond this
+project, so the synthetic web stayed the honest main dataset.)
+
 ## What I'd do differently
 
 - **Crawl something real at scale.** The polite crawler works, and a
-  bounded real crawl is committed (`crawl_real.py` + `data/real_crawl.json`:
-  25 pages / 1071 links from imperial.ac.uk, ranked and searchable) —
-  but the experiments still mostly run on the synthetic web because a
-  large crawl needs care (robots.txt, rate limits, storage). The
-  synthetic web was the honest scope.
+  bounded real crawl is committed — but the experiments still mostly
+  run on the synthetic web.
 - **Query understanding.** No query expansion, no synonyms, no
   stemming beyond a naive suffix strip.
 - **Blocking.** PageRank on the synthetic web is fine as an algorithm
