@@ -95,9 +95,14 @@ def demo_graph() -> None:
     print("=" * 70)
     print("4. THE GRAPH")
     print("   Synthetic web: 10 topic communities, 4 hubs, 3")
-    print("   authorities, 3 sinks - the structures real webs have.")
+    print("   authorities, sinks - the structures real webs have.")
     print("=" * 70)
     pages, links = synthetic_web()
+    outdeg = [0] * len(pages)
+    for (i, j) in links:
+        outdeg[i] += 1
+    n_sinks = sum(1 for d in outdeg if d == 0)
+    print(f"   ({n_sinks} sink pages: out-degree 0)")
     pi = pagerank(links, len(pages))
     top = rank_scores(pi, [p["title"] for p in pages])
     print("   top-5 by PageRank (authorities: many pages link to them):")
