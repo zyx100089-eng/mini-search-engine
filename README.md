@@ -1,21 +1,18 @@
 # Mini Search Engine
 
 [![Tests](https://github.com/zyx100089-eng/mini-search-engine/actions/workflows/tests.yml/badge.svg)](https://github.com/zyx100089-eng/mini-search-engine/actions/workflows/tests.yml)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
-A small search engine I built to understand what actually happens
-between typing a query and getting results: a polite web crawler, a
-sparse (CSR) web graph, PageRank via power iteration, and a
+A small search engine, built because I wanted to see what actually
+happens between typing a query and getting results: a polite web
+crawler, a sparse (CSR) web graph, PageRank via power iteration, and a
 TF-IDF × PageRank ranking blend.
 
 ## The question I started with
 
 Every search explanation says "PageRank is the stationary distribution
-of a Markov chain over the web". I could recite that sentence but
-couldn't have implemented it. So the project's test was: can I go from
-the 1998 paper to working code that indexes pages, ranks them, and
-answers queries — without copying a tutorial?
+of a Markov chain over the web". I could recite that sentence — I just
+couldn't have implemented it. So that became the test: start from the
+1998 paper, end with working code that indexes pages, ranks them, and
+answers queries, without copying a tutorial.
 
 ## What I built
 
@@ -39,7 +36,7 @@ teleportation, unreachable pages would have no rank at all. The
 implementation is a power iteration: `π_{k+1} = d·Aᵀπ_k + (1-d)/N`,
 stopping when ‖π_{k+1} − π_k‖₁ < 1e-10.
 
-## Results I trust
+## What I measured
 
 - PageRank matches an independent dense NumPy implementation on 20
   random graphs (atol 1e-10); sum(π) == 1 exactly to float precision.
@@ -95,7 +92,7 @@ and searchable with the same pipeline. (Scope: a large crawl needs
 robots.txt, rate limits, and storage — that's engineering beyond this
 project, so the synthetic web stayed the honest main dataset.)
 
-## What I'd do differently
+## If I came back to this
 
 - **Crawl something real at scale.** The polite crawler works, and a
   bounded real crawl is committed — but the experiments still mostly
